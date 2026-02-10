@@ -2056,15 +2056,16 @@
             document.getElementById('productivityScore').textContent = productivity + '%';
             
             // Check for 100% completion and show celebration video
+            // IMPORTANT: Only trigger if we have tasks AND all are completed
             console.log(`Productivity: ${productivity}%, Total: ${total}, Completed: ${completed}, Flag: ${hasShownCelebration}`);
-            if (total > 0 && productivity === 100 && !hasShownCelebration) {
+            if (total > 0 && completed > 0 && productivity === 100 && !hasShownCelebration) {
                 console.log('🎯 100% ACHIEVED! Triggering celebration...');
                 hasShownCelebration = true;
                 setTimeout(() => showCelebrationVideo(), 500);
             }
             
             // Reset flag when no longer at 100%
-            if (productivity < 100) {
+            if (productivity < 100 || total === 0) {
                 hasShownCelebration = false;
             }
             
